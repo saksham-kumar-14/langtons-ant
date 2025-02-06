@@ -1,20 +1,21 @@
 import pygame, random
 from ant import Ant 
 pygame.init()
+pygame.font.init()
 pygame.display.set_caption("Langton's Ant")
 
 
 WIDTH, HEIGHT = 700, 700 
 SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
 CLOCK = pygame.time.Clock()
-FPS = 60
-
+FPS = 25
+FONT = pygame.font.SysFont("freesansbold.ttf", 36)
 
 #main game loop
 def main():
     running = True
     grid = []
-    N = 20
+    N = 100
     for i in range(N):
         t = []
         for j in range(N):
@@ -23,7 +24,7 @@ def main():
     size = WIDTH//N
 
     ants = []
-    ant_n = 2
+    ant_n = 10
     ant_color = (255, 0, 0)
     for i in range(ant_n):
         d = random.choice([0, 1, 2, 3])
@@ -31,6 +32,8 @@ def main():
         y = random.randrange(0, N)
         ant = Ant(x, y, size, ant_color, d)
         ants.append(ant)
+
+    steps = 0
 
     while(running):
         for event in pygame.event.get():
@@ -94,8 +97,10 @@ def main():
                     ant.pheromone[j][1] -= ant.decay_rate
 
 
-            print(ant.x, ant.y)
-
+        # displaying font
+        frames = FONT.render(f"Steps: {steps}", True, (255, 0 ,0))
+        SCREEN.blit(frames, (0 ,0))
+        steps += 1
 
 
         CLOCK.tick(FPS)
