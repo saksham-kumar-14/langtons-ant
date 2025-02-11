@@ -24,12 +24,12 @@ def main():
     size = WIDTH//N
 
     ants = []
-    ant_n = 10
+    ant_n = 2
     ant_color = (255, 0, 0)
     for i in range(ant_n):
         d = random.choice([0, 1, 2, 3])
-        x = random.randrange(0, N)
-        y = random.randrange(0, N)
+        x = random.randrange(N//2, 3*N//4)
+        y = N//2
         ant = Ant(x, y, size, ant_color, d)
         ants.append(ant)
 
